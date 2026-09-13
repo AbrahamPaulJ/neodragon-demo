@@ -13,8 +13,8 @@ Restore in this order.
   **HTP v79 / SM8750** (`soc_model: 69`). Conversion runs under **WSL**
   (`x86_64-linux-clang`); adb runs from **PowerShell** — Git Bash mangles `/data/...`
   paths.
-* **Python 3.10** on Windows with torch 2.8+cu129, onnx, onnxruntime, transformers 4.55.3,
-  diffusers, timm, sentencepiece, onnxconverter_common.
+* **Python 3.10** on Windows, with the exact versions in `requirements-host.txt`:
+  `py -3.10 -m pip install -r requirements-host.txt --extra-index-url https://download.pytorch.org/whl/cu129`
 * A **QNN venv under WSL** on Python 3.10 with numpy 1.26.4 (the SDK's tested pin) — the
   SDK's `libPyIrGraph310` requires 3.10.
 * **Android NDK r26d or newer** (Linux, inside WSL) for `qnn-model-lib-generator`, plus the
@@ -70,7 +70,13 @@ The skel is found at runtime through `ADSP_LIBRARY_PATH`, which the app sets to 
 
 ```bash
 git clone https://github.com/qualcomm-ai-research/neodragon src/neodragon
+git -C src/neodragon checkout d2abbe99f46577c4e1db682ad3c26832ec0c23b9
 ```
+
+Pin that commit (2026-07-02). The export scripts import upstream modules directly and
+rewrite parts of them, so a newer upstream can break an export without any error message.
+The calibration prompts (`prompts/vbench_prompts.txt`, `showcase_prompts.txt`) also come
+from this clone.
 
 BSD-3-Clause-Clear. The port reads it for the reference implementation and imports it
 directly in the export scripts.
@@ -78,7 +84,8 @@ directly in the export scripts.
 ## 4. Weights
 
 `Qualcomm-AI-Research/Neodragon` on HuggingFace (BSD-3-Clause-Clear, 17.5 GB total). The
-AR text-to-video path needs only ~8.6 GB of it, into `work/models/neodragon/`:
+AR text-to-video path needs only ~8.6 GB of it, into `work/models/neodragon/`.
+`py -3.10 work/pipeline/fetch_hybrid.py` downloads exactly this subset:
 
 ```
 text_encoder_3 + tokenizer_3   DistilT5, 259 MB
@@ -109,8 +116,11 @@ py -3.10 work/export/export_video_structure.py   # time_text_embed + all 18 RoPE
 
 ## 6. Convert the models
 
-Each module has an export script in `work/export/` and a conversion script in `work/qnn/`.
-Run conversions under WSL. Rough wall times measured on this machine:
+**The full ordered recipe, command by command, is [`docs/rebuild-models.md`](docs/rebuild-models.md).**
+No ONNX files, calibration sets or converter outputs are published, so a rebuild starts
+from the weights. Each module has an export script in `work/export/`, a calibration step,
+and a conversion script in `work/qnn/`. Conversions run under WSL. Rough wall times on the
+reference machine (RTX 3050 6 GB laptop, 16 GB RAM):
 
 | module | conversion |
 |---|---|

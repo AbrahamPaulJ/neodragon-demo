@@ -40,6 +40,7 @@ The reference PyTorch pipeline runs locally on the RTX 3050. Nothing is blocked.
 | `docs/phase5-stage2-bandwidth.md` | why stage 2 is bandwidth-bound, the fused-score fix, and the per-op cost table |
 | `notes/2026-08-23-session7-app.md` | session 7: I2V, QuickSRNet, MP4, device gating, and the Compose/MediaCodec traps |
 | `docs/writeup-index.md` | the through-line, the chronology, the beliefs that were wrong, and where every number lives |
+| `docs/rebuild-models.md` | **the ordered recipe** for regenerating all 14 context binaries from the weights |
 | `docs/porting-other-socs.md` | **porting to 8 Gen 3 / 8 Gen 2 and older.** What changes, what to re-measure, the app build flags |
 | `docs/roadmap.md` | **what to do next and in what order.** Nine tracks scored for effort and risk, incl. the QAIRT LoRA toolchain find |
 | `docs/trap-audit.md` | **read first.** The three statically-inspectable traps, measured, with verified fixes |

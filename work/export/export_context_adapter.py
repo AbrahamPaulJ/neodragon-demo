@@ -22,6 +22,7 @@ converted for completeness of the on-device pipeline.
   usage: py -3.10 work/export/export_context_adapter.py --prompts 300 --export
 """
 
+import re
 import argparse
 import os
 import sys
@@ -202,7 +203,7 @@ def main():
     cal.mkdir(parents=True, exist_ok=True)
     for f in cal.glob("*.raw"):
         f.unlink()
-    host = str(cal).replace("C:", "/mnt/c").replace("\\", "/")
+    host = re.sub(r"^([A-Za-z]):", lambda m: "/mnt/" + m.group(1).lower(), str(cal).replace("\\", "/"))
     rows = []
     for i in range(a.prompts):
         p = cal / "prompt_embeds_{:04d}.raw".format(i)

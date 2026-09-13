@@ -1,0 +1,28 @@
+# Windows/Linux host environment for export, calibration capture and the reference
+# pipeline -- everything under work/export, work/pipeline, work/device and work/audit.
+# These are the exact versions the shipped binaries were built with (Python 3.10.11).
+#
+# NOT for the QAIRT converter: that runs under WSL in its own Python 3.10 venv, built by
+# work/qnn/setup_env.sh against the SDK's own dependency list.
+#
+#   py -3.10 -m pip install -r requirements-host.txt \
+#       --extra-index-url https://download.pytorch.org/whl/cu129
+
+torch==2.8.0
+torchvision==0.23.0
+numpy==1.26.4
+onnx==1.18.0
+onnxruntime==1.22.1
+onnxconverter-common==1.16.0
+transformers==4.55.3
+diffusers==0.35.1
+accelerate==1.10.0
+huggingface-hub==0.34.4
+safetensors==0.6.2
+sentencepiece==0.2.2
+timm==1.0.28
+einops==0.8.2
+protobuf==5.29.3
+Pillow==9.5.0
+# QuickSRNet weights come from Qualcomm AI Hub's model zoo (work/export/export_quicksrnet.py)
+qai_hub_models==0.60.0

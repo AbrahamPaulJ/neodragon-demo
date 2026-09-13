@@ -18,6 +18,7 @@ so build one stage at a time, convert, and delete before moving on.
   usage: py -3.10 work/device/make_mmdit_io.py --stage 0 --split calib
 """
 
+import re
 import argparse
 import os
 import sys
@@ -189,7 +190,7 @@ def main():
     name = "calib_list_host.txt" if args.split == "calib" else "input_list.txt"
     if args.split == "calib":
         # host paths for qnn-onnx-converter, NOT device paths (see convert scripts)
-        host = [ln.replace(dev_dir, "/mnt/c" + str(out).replace("C:", "").replace("\\", "/"))
+        host = [ln.replace(dev_dir, re.sub(r"^([A-Za-z]):", lambda m: "/mnt/" + m.group(1).lower(), str(out).replace("\\", "/")))
                 for ln in lines]
         (out / name).write_text("\n".join(host) + "\n", newline="\n")
     else:

@@ -17,6 +17,7 @@ Per sample: sample 160 KB + encoder_hidden_states 630 KB + t_emb 1.2 KB + aug_em
          py -3.10 work/pipeline/capture_unet_calib.py --prompts 4 --split test
 """
 
+import re
 import argparse
 import os
 import sys
@@ -110,7 +111,7 @@ def main():
 
     n = 0
     lines = []
-    host = str(out).replace("C:", "/mnt/c").replace("\\", "/")
+    host = re.sub(r"^([A-Za-z]):", lambda m: "/mnt/" + m.group(1).lower(), str(out).replace("\\", "/"))
     for i in range(a.start, a.start + a.prompts):
         prompt = prompts[i % len(prompts)]
         gen = torch.Generator(device="cpu").manual_seed(a.seed + i)

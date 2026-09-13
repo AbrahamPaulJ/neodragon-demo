@@ -25,6 +25,7 @@ buffers.
   py -3.10 work/audit/concat_repro.py --variant padadd --check work/device/crepro
 """
 
+import re
 import argparse
 import os
 from pathlib import Path
@@ -172,8 +173,7 @@ def main():
         for nm, p in zip(names, parts):
             v = torch.randn(*shp(p), generator=gg).numpy().astype(np.float32)
             v.tofile(cal / "{}_{:04d}.raw".format(nm, s))
-            row.append("{}:={}".format(nm, str(cal / "{}_{:04d}.raw".format(nm, s))
-                                       .replace("C:", "/mnt/c").replace("\\", "/")))
+            row.append("{}:={}".format(nm, re.sub(r"^([A-Za-z]):", lambda m: "/mnt/" + m.group(1).lower(), str(cal / "{}_{:04d}.raw".format(nm, s)).replace("\\", "/"))))
             drow.append("{}:={}/{}/{}_{:04d}.raw".format(nm, DEVICE_ROOT, tag, nm, s))
         lines.append(" ".join(row))
         dev_lines.append(" ".join(drow))

@@ -15,6 +15,7 @@ No GPU needed -- the only input is `input_ids`, so calibration is just tokenisin
   usage: py -3.10 work/pipeline/make_clip_calib.py --prompts 300
 """
 
+import re
 import argparse
 import os
 import sys
@@ -49,7 +50,7 @@ def main():
     out.mkdir(parents=True, exist_ok=True)
     for f in out.glob("*.raw"):
         f.unlink()
-    host = str(out).replace("C:", "/mnt/c").replace("\\", "/")
+    host = re.sub(r"^([A-Za-z]):", lambda m: "/mnt/" + m.group(1).lower(), str(out).replace("\\", "/"))
 
     rows = []
     for i in range(a.prompts):

@@ -63,6 +63,7 @@ the app process.
 | current state and what to do next | [`HANDOFF.md`](HANDOFF.md) |
 | to build and run it | [`SETUP.md`](SETUP.md) |
 | **to port it to an 8 Gen 3 / 8 Gen 2 or older** | [`docs/porting-other-socs.md`](docs/porting-other-socs.md) |
+| to rebuild every model from the weights | [`docs/rebuild-models.md`](docs/rebuild-models.md) |
 | the plan, scored for effort and risk | [`docs/roadmap.md`](docs/roadmap.md) |
 | the whole arc, for a writeup | [`docs/writeup-index.md`](docs/writeup-index.md) |
 | the trap catalogue | [`docs/traps.md`](docs/traps.md) |

@@ -52,8 +52,9 @@ for n in mmdit_s0fs mmdit_s1fs mmdit_s2fs quicksrm2x ctxadaptfp16 distilt5f \
 done
 ```
 
-**If you are starting from nothing,** follow `SETUP.md` (weights, exports, calibration
-capture) and run each module's conversion script with the variables set:
+**If you are starting from nothing,** which is the normal case because the model
+libraries are not published, follow [`docs/rebuild-models.md`](rebuild-models.md) with
+`HTP_ARCH` / `SOC_MODEL` set. In summary:
 
 | shipped binary | produced by |
 |---|---|
