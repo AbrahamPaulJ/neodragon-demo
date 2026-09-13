@@ -102,6 +102,7 @@ from its Tables 7 and 9.
 
 ## Licensing
 
-The port — everything under `work/`, `docs/`, `notes/` — is this repo's own work.
+The port — everything under `work/`, `docs/`, `notes/` — is released under the
+[Clear BSD License](LICENSE) (BSD-3-Clause-Clear), the same license as upstream Neodragon.
 Neodragon itself and its weights are **BSD-3-Clause-Clear** (Qualcomm AI Research). The
 QAIRT SDK is Qualcomm's and is not redistributed here.
