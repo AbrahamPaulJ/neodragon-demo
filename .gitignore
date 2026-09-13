@@ -1,0 +1,79 @@
+# NOTE: git does not support trailing comments on a pattern line. Every comment here
+# is on its own line for exactly that reason -- an earlier version wrote
+# "work/models/   # 9.6 GB of weights" and the pattern silently matched nothing.
+
+# ---------------------------------------------------------------------------
+# Model weights and build artefacts -- 26 GB, none of it belongs in git
+# ---------------------------------------------------------------------------
+work/models/
+work/calib/
+work/onnx/
+!work/onnx/README.md
+work/tmp/
+output/
+
+# work/device holds the device TOOLING (keep) next to every binary, raw I/O vector and
+# dump directory the port ever produced (drop). Allow-listing by extension is the only
+# way that does not spring a leak the next time a new dump directory appears.
+work/device/*
+!work/device/*.py
+!work/device/*.sh
+!work/device/*.ps1
+!work/device/*.md
+
+# ---------------------------------------------------------------------------
+# Third-party SDK material -- NOT ours to redistribute. See SETUP.md.
+# ---------------------------------------------------------------------------
+work/android/app/src/main/jniLibs/
+work/android/app/src/main/cpp/include/
+
+# upstream Neodragon clone (BSD-3-Clause-Clear), has its own .git.
+# LEADING SLASH IS LOAD-BEARING: an unanchored "src/" also matches
+# work/android/app/src/ and silently excluded the entire app.
+/src/
+
+# ---------------------------------------------------------------------------
+# Generated app assets -- derived from model weights, rebuilt by two scripts
+# ---------------------------------------------------------------------------
+work/android/app/src/main/assets/
+
+# ---------------------------------------------------------------------------
+# Android / Gradle
+# ---------------------------------------------------------------------------
+work/android/app/build/
+work/android/build/
+work/android/.gradle/
+work/android/.kotlin/
+work/android/app/.cxx/
+work/android/dist/
+work/android/local.properties
+*.apk
+*.aab
+
+# ---------------------------------------------------------------------------
+# Misc
+# ---------------------------------------------------------------------------
+*.log
+*.err
+*.bak
+*.pyc
+__pycache__/
+.DS_Store
+Thumbs.db
+
+# the arXiv paper, 31 MB -- linked from the README instead
+*.pdf
+
+# local toolchain paths -- copy from work/qnn/qnn_env.example.sh
+work/qnn/qnn_env.sh
+
+# generated per-build by the convert_*.sh scripts
+work/qnn/htp_config_*.json
+work/qnn/htp_backend_*.json
+
+# editor/experiment backups
+*.rank3bak
+*.orig
+
+# extracted full text of the arXiv paper -- summarised in docs/paper-notes.md instead
+work/paper/

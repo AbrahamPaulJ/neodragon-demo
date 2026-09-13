@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Adaptive-icon foreground. Content is kept inside the central 66dp of the 108dp canvas
+  (roughly x,y in 21..87) because launchers mask and animate the outer ring away.
+
+  The mark is a film frame with a play triangle: it reads at 48px, it says "video" rather
+  than "AI", and it uses the app's own accent (#D0BCFF) so the icon and the UI match.
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- frame -->
+    <path
+        android:pathData="M30,32 h48 a6,6 0 0 1 6,6 v32 a6,6 0 0 1 -6,6 h-48 a6,6 0 0 1 -6,-6 v-32 a6,6 0 0 1 6,-6 z"
+        android:strokeColor="#D0BCFF"
+        android:strokeWidth="4.5"
+        android:fillColor="#00000000"
+        android:strokeLineJoin="round" />
+
+    <!-- sprocket holes, left and right -->
+    <path android:pathData="M28,40 h5 v5 h-5 z M28,52 h5 v5 h-5 z M28,64 h5 v5 h-5 z"
+        android:fillColor="#D0BCFF" android:fillAlpha="0.55" />
+    <path android:pathData="M75,40 h5 v5 h-5 z M75,52 h5 v5 h-5 z M75,64 h5 v5 h-5 z"
+        android:fillColor="#D0BCFF" android:fillAlpha="0.55" />
+
+    <!-- play triangle -->
+    <path
+        android:pathData="M49,44 L67,54 L49,64 z"
+        android:fillColor="#D0BCFF" />
+</vector>

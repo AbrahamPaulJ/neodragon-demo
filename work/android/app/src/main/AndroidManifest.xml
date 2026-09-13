@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- Progress for the ~8 GB model download. Runtime-granted on 13+; the
+         download works without it, only the notification is lost. -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <!-- The model download is ~8 GB and must survive the app going to the
+         background; a composition-scoped coroutine is cancelled the moment the
+         Activity is recreated. -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <application
+        android:label="Neodragon Demo"
+        android:icon="@mipmap/ic_launcher"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:theme="@android:style/Theme.Material.NoActionBar"
+        android:largeHeap="true"
+        android:extractNativeLibs="true"
+        android:allowBackup="false">
+
+        <!--
+            The Hexagon DSP is reached through libcdsprpc.so, a VENDOR library. It is
+            listed in /vendor/etc/public.libraries.txt on this device, so it is linkable
+            in principle, but from targetSdk 31 an app must also name it here or the
+            linker refuses it and libQnnHtpV79Stub.so fails to load:
+
+                dlopen failed: library "libcdsprpc.so" not found:
+                needed by libQnnHtpV79Stub.so in namespace clns-9
+
+            which surfaces four layers up as the far less helpful
+            "Failed to load skel, error: 4000" / "Device Creation failure".
+        -->
+        <uses-native-library android:name="libcdsprpc.so" android:required="true" />
+        <uses-native-library android:name="libadsprpc.so" android:required="false" />
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:label="Neodragon Demo">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <service
+            android:name=".DownloadService"
+            android:exported="false"
+            android:foregroundServiceType="dataSync" />
+    </application>
+</manifest>

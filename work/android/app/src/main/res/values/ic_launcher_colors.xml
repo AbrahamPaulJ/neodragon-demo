@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Matches the dark Material surface the app itself uses, so the icon does not look
+         like it belongs to a different app than the one it opens. -->
+    <color name="ic_launcher_background">#141218</color>
+</resources>
